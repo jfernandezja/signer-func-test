@@ -1,0 +1,26 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13'
+}
+
+task startServices(type: Exec) {
+
+  executable "sh"
+  args "-c", "echo '==> Signer service starting...'"
+}
+
+task stopServices(type: Exec) {
+
+  executable "sh"
+  args "-c", "echo '==> Signer service stopping...'"
+}
+
+tasks.test.dependsOn startServices
+tasks.test.finalizedBy stopServices
