@@ -1,3 +1,3 @@
 FROM oauth-service:latest
 
-COPY src/test/resources/oauth-service/config.json /
+COPY $WORKSPACE/src/test/resources/oauth-service/config.json /

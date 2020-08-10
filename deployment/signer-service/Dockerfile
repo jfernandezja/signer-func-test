@@ -1,3 +1,3 @@
 FROM signer-service:latest
 
-COPY src/test/resources/signer-service/config.json /
+COPY $WORKSPACE/src/test/resources/signer-service/config.json /
