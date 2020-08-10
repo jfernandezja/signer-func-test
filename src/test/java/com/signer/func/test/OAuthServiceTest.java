@@ -1,5 +1,6 @@
 package com.signer.func.test;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,13 @@ import org.junit.Test;
 
 public class OAuthServiceTest {
     @Test public void validOAuthCGGTest() throws Exception {
+    	String ipAddress = "127.0.0.1";
+        InetAddress inet = InetAddress.getByName(ipAddress);
+
+        System.out.println("Sending Ping Request to " + ipAddress);
+        System.out.println(inet.isReachable(5000) ? "Host is reachable" : "Host is NOT reachable");
+        
+        
     	HttpPost post = new HttpPost("http://oauth-service-func.signer-network:9080/authserver/v1/oauth/token");
 
         List<NameValuePair> urlParameters = new ArrayList<>();
