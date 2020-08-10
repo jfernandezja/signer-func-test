@@ -1,26 +1,33 @@
 package com.signer.func.test;
 
-import org.junit.Assert;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
-import io.vertx.core.Vertx;
-import io.vertx.core.buffer.Buffer;
-import io.vertx.ext.web.client.HttpResponse;
-import io.vertx.ext.web.client.WebClient;
+
 
 public class OAuthServiceTest {
-    @Test public void testSomeLibraryMethod() {
-    	Vertx vertx = Vertx.vertx();
-    	WebClient client = WebClient.create(vertx);
-    	client
-    	  .get(9080, "localhost", "/authserver/v1/oauth/token")
-    	  .send(ar -> {
-    	    if (ar.succeeded()) {
-    	      HttpResponse<Buffer> response = ar.result();
-    	      Assert.assertEquals(200, response.statusCode());
-    	    } else {
-    	      Assert.fail(ar.cause().getMessage());
-    	    }
-    	  });
+    @Test public void validOAuthCGGTest() throws Exception {
+    	HttpPost post = new HttpPost("http://localhost:9080/authserver/v1/oauth/token");
+
+        List<NameValuePair> urlParameters = new ArrayList<>();
+        urlParameters.add(new BasicNameValuePair("grant_type", "client_credentials"));
+
+        post.setEntity(new UrlEncodedFormEntity(urlParameters));
+
+        try (CloseableHttpClient httpClient = HttpClients.createDefault();
+             CloseableHttpResponse response = httpClient.execute(post)) {
+
+            System.out.println(EntityUtils.toString(response.getEntity()));
+        }
     }
 }

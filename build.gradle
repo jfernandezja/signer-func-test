@@ -2,13 +2,17 @@ plugins {
     id 'java-library'
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-	testCompile group: 'io.vertx', name: 'vertx-core', version: '3.9.2'
-	testCompile group: 'io.vertx', name: 'vertx-web-client', version: '3.9.2'
+	testCompile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.12'
 	testCompile group: 'commons-io', name: 'commons-io', version: '2.7'
 	testCompile group: 'org.json', name: 'json', version: '20200518'
     testImplementation 'junit:junit:4.13'
