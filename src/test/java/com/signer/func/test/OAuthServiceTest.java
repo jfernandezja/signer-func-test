@@ -19,7 +19,7 @@ import org.junit.Test;
 
 public class OAuthServiceTest {
     @Test public void validOAuthCGGTest() throws Exception {
-    	String ipAddress = "127.0.0.1";
+    	String ipAddress = "oauth-service-func.signer-network";
         InetAddress inet = InetAddress.getByName(ipAddress);
 
         Assert.assertTrue(inet.isReachable(5000));
