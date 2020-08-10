@@ -1,6 +1,6 @@
 #!/bin/bash
 
-local currentContainerId = $(cat /proc/self/cgroup | grep "docker" | sed s/\\//\\n/g | tail -1)
+currentContainerId=$(cat /proc/self/cgroup | grep "docker" | sed s/\\//\\n/g | tail -1)
 
 docker build -t oauth-service-func deployment/oauth-service
 docker build -t signer-service-func deployment/signer-service
