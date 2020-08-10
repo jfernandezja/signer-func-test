@@ -19,7 +19,7 @@ task startServices(type: Exec) {
 task stopServices(type: Exec) {
 
   executable "sh"
-  args "-c", "chmod +x deployment/deploy.sh && deployment/undeploy.sh"
+  args "-c", "chmod +x deployment/undeploy.sh && deployment/undeploy.sh"
 }
 
 tasks.test.dependsOn startServices
