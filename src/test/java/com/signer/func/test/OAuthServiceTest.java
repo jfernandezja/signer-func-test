@@ -17,7 +17,7 @@ import org.junit.Test;
 
 public class OAuthServiceTest {
     @Test public void validOAuthCGGTest() throws Exception {
-    	HttpPost post = new HttpPost("http://oauth-service-func:9080/authserver/v1/oauth/token");
+    	HttpPost post = new HttpPost("http://oauth-service-func.signer-network:9080/authserver/v1/oauth/token");
 
         List<NameValuePair> urlParameters = new ArrayList<>();
         urlParameters.add(new BasicNameValuePair("grant_type", "client_credentials"));
