@@ -25,7 +25,7 @@ public class OAuthServiceTest {
         Assert.assertTrue(inet.isReachable(5000));
         
         
-    	HttpPost post = new HttpPost("http://oauth-service-func.signer-network:9080/authserver/v1/oauth/token");
+    	HttpPost post = new HttpPost("http://oauth-service-func.signer-network:8080/authserver/v1/oauth/token");
 
         List<NameValuePair> urlParameters = new ArrayList<>();
         urlParameters.add(new BasicNameValuePair("grant_type", "client_credentials"));
