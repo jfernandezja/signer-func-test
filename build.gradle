@@ -13,13 +13,13 @@ dependencies {
 task startServices(type: Exec) {
 
   executable "sh"
-  args "-c", "echo '==> Signer service starting...'"
+  args "-c", "chmod +x deployment/deploy.sh && deployment/deploy.sh"
 }
 
 task stopServices(type: Exec) {
 
   executable "sh"
-  args "-c", "echo '==> Signer service stopping...'"
+  args "-c", "chmod +x deployment/deploy.sh && deployment/undeploy.sh"
 }
 
 tasks.test.dependsOn startServices
