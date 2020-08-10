@@ -13,4 +13,5 @@ docker network connect signer-network $currentContainerId
 docker network connect signer-network oauth-service-func
 docker network connect signer-network signer-service-func
 
+echo "Starting services..."
 sleep 5
