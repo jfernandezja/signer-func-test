@@ -7,6 +7,10 @@ repositories {
 }
 
 dependencies {
+	testCompile group: 'io.vertx', name: 'vertx-core', version: '3.9.2'
+	testCompile group: 'io.vertx', name: 'vertx-web-client', version: '3.9.2'
+	testCompile group: 'commons-io', name: 'commons-io', version: '2.7'
+	testCompile group: 'org.json', name: 'json', version: '20200518'
     testImplementation 'junit:junit:4.13'
 }
 
