@@ -12,6 +12,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
 
@@ -21,8 +22,7 @@ public class OAuthServiceTest {
     	String ipAddress = "127.0.0.1";
         InetAddress inet = InetAddress.getByName(ipAddress);
 
-        System.err.println("Sending Ping Request to " + ipAddress);
-        System.err.println(inet.isReachable(5000) ? "Host is reachable" : "Host is NOT reachable");
+        Assert.assertTrue(inet.isReachable(5000));
         
         
     	HttpPost post = new HttpPost("http://oauth-service-func.signer-network:9080/authserver/v1/oauth/token");
