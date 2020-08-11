@@ -11,23 +11,72 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 
 
 
 public class OAuthServiceTest {
-    @Test public void validOAuthCGGTest() throws Exception {
-    	HttpPost post = new HttpPost("http://oauth-service-func:8080/authserver/v1/oauth/token");
+	private static final String SERVER_HOST = "oauth-service-func";
+	private static final String SERVER_PORT = "8080";
+	
+    @Test public void validCCGTest() throws Exception {
+    	HttpPost post = new HttpPost("http://" + SERVER_HOST + ":" + SERVER_PORT + "/authserver/v1/oauth/token");
 
         List<NameValuePair> urlParameters = new ArrayList<>();
         urlParameters.add(new BasicNameValuePair("grant_type", "client_credentials"));
 
         post.setEntity(new UrlEncodedFormEntity(urlParameters));
-
+        post.setHeader("Authorization", "Basic bXljbGllbnQ6cGFzcw==");
         try (CloseableHttpClient httpClient = HttpClients.createDefault();
-             CloseableHttpResponse response = httpClient.execute(post)) {
+        	CloseableHttpResponse response = httpClient.execute(post)) {
+        	
+        	JSONObject obj = new JSONObject(EntityUtils.toString(response.getEntity()));
+        	Assert.assertEquals("Bearer", obj.getString("token_type"));
+        	Assert.assertNotNull(obj.get("access_token"));
+        }
+    }
+    
+    @Test public void invalidCredentialsTest() throws Exception {
+    	HttpPost post = new HttpPost("http://" + SERVER_HOST + ":" + SERVER_PORT + "/authserver/v1/oauth/token");
 
-            System.out.println(EntityUtils.toString(response.getEntity()));
+        List<NameValuePair> urlParameters = new ArrayList<>();
+        urlParameters.add(new BasicNameValuePair("grant_type", "client_credentials"));
+
+        post.setEntity(new UrlEncodedFormEntity(urlParameters));
+        post.setHeader("Authorization", "Basic bXljbGllbnRhYTpwYXNz");
+        try (CloseableHttpClient httpClient = HttpClients.createDefault();
+        	CloseableHttpResponse response = httpClient.execute(post)) {
+        	Assert.assertEquals(401, response.getStatusLine().getStatusCode());
+        }
+    }
+    
+    @Test public void invalidGrantTypeTest() throws Exception {
+    	HttpPost post = new HttpPost("http://" + SERVER_HOST + ":" + SERVER_PORT + "/authserver/v1/oauth/token");
+
+        List<NameValuePair> urlParameters = new ArrayList<>();
+        urlParameters.add(new BasicNameValuePair("grant_type", "incorrect_type"));
+
+        post.setEntity(new UrlEncodedFormEntity(urlParameters));
+        post.setHeader("Authorization", "Basic bXljbGllbnQ6cGFzcw==");
+        try (CloseableHttpClient httpClient = HttpClients.createDefault();
+        	CloseableHttpResponse response = httpClient.execute(post)) {
+        	Assert.assertEquals(400, response.getStatusLine().getStatusCode());
+        }
+    }
+    
+    @Test public void invalidPathTest() throws Exception {
+    	HttpPost post = new HttpPost("http://" + SERVER_HOST + ":" + SERVER_PORT + "/authserver/oauth/token");
+
+        List<NameValuePair> urlParameters = new ArrayList<>();
+        urlParameters.add(new BasicNameValuePair("grant_type", "incorrect_type"));
+
+        post.setEntity(new UrlEncodedFormEntity(urlParameters));
+        post.setHeader("Authorization", "Basic bXljbGllbnQ6cGFzcw==");
+        try (CloseableHttpClient httpClient = HttpClients.createDefault();
+        	CloseableHttpResponse response = httpClient.execute(post)) {
+        	Assert.assertEquals(404, response.getStatusLine().getStatusCode());
         }
     }
 }
