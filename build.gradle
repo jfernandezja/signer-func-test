@@ -2,24 +2,32 @@ plugins {
     id 'java-library'
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
+	testCompile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.12'
+	testCompile group: 'commons-io', name: 'commons-io', version: '2.7'
+	testCompile group: 'org.json', name: 'json', version: '20200518'
     testImplementation 'junit:junit:4.13'
 }
 
 task startServices(type: Exec) {
 
   executable "sh"
-  args "-c", "echo '==> Signer service starting...'"
+  args "-c", "chmod +x deployment/deploy.sh && deployment/deploy.sh"
 }
 
 task stopServices(type: Exec) {
 
   executable "sh"
-  args "-c", "echo '==> Signer service stopping...'"
+  args "-c", "chmod +x deployment/undeploy.sh && deployment/undeploy.sh"
 }
 
 tasks.test.dependsOn startServices

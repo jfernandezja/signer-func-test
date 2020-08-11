@@ -1,7 +1,14 @@
 #!/bin/bash
 
-docker build -t oauh-service-func -name oauth-service-func src/test/resources/oauth-service
-docker build -t signer-service-func -name signer-service-func src/test/resources/signer-service
+currentContainerId=$(cat /proc/self/cgroup | grep "docker" | sed s/\\//\\n/g | tail -1)
 
-docker run -p 9080:8080 -t oauth-service-func
-docker run -p 9082:8080 -t signer-service-func
+docker build -t oauth-service-func deployment/oauth-service
+docker build -t signer-service-func deployment/signer-service
+
+docker run -d --rm --name oauth-service-func -t oauth-service-func 
+docker run -d --rm --name signer-service-func -t signer-service-func
+
+docker network create signer-network
+docker network connect signer-network $currentContainerId
+docker network connect signer-network oauth-service-func
+docker network connect signer-network signer-service-func
