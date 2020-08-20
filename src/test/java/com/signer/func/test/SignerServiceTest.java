@@ -20,10 +20,10 @@ import org.junit.Test;
 
 
 public class SignerServiceTest {
-	private static final String AS_SERVER_HOST = "oauth-service-func";
+	private static final String AS_SERVER_HOST = "oauth-service-func-master";
 	private static final String AS_SERVER_PORT = "8080";
 	
-	private static final String SERVER_HOST = "signer-service-func";
+	private static final String SERVER_HOST = "signer-service-func-master";
 	private static final String SERVER_PORT = "8080";
 	
 	private static String accessToken;

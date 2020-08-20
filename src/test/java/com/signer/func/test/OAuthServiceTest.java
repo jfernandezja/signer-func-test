@@ -18,7 +18,7 @@ import org.junit.Test;
 
 
 public class OAuthServiceTest {
-	private static final String SERVER_HOST = "oauth-service-func";
+	private static final String SERVER_HOST = "oauth-service-func-master";
 	private static final String SERVER_PORT = "8080";
 	
     @Test public void validCCGTest() throws Exception {
