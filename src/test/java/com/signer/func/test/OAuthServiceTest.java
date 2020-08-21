@@ -28,7 +28,6 @@ public class OAuthServiceTest {
 	}
 	
     @Test public void validCCGTest() throws Exception {
-    	Assert.assertEquals("origin/develop", );
     	HttpPost post = new HttpPost("http://" + SERVER_HOST + ":" + SERVER_PORT + "/authserver/v1/oauth/token");
 
         List<NameValuePair> urlParameters = new ArrayList<>();
