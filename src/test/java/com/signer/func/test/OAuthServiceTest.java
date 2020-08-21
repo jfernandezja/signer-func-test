@@ -1,6 +1,5 @@
 package com.signer.func.test;
 
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +24,10 @@ public class OAuthServiceTest {
 	
 	@BeforeClass
 	public static void initHost() {
-		SERVER_HOST = System.getenv("GIT_BRANCH").replace("origin/", "");
+		SERVER_HOST = SERVER_HOST + "-" + System.getenv("GIT_BRANCH").replace("origin/", "");
 	}
 	
     @Test public void validCCGTest() throws Exception {
-    	FileWriter writer = new FileWriter("/tmp/out.log");
-    	writer.append(SERVER_HOST);
-    	writer.close();
     	HttpPost post = new HttpPost("http://" + SERVER_HOST + ":" + SERVER_PORT + "/authserver/v1/oauth/token");
 
         List<NameValuePair> urlParameters = new ArrayList<>();
