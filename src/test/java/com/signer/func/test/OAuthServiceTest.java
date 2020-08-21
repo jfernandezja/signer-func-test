@@ -13,16 +13,22 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
 
 public class OAuthServiceTest {
-	private static final String SERVER_HOST = "oauth-service-func";
+	private static String SERVER_HOST = "oauth-service-func";
 	private static final String SERVER_PORT = "8080";
 	
+	@BeforeClass
+	public static void initHost() {
+		SERVER_HOST = System.getenv("GIT_BRANCH").replace("origin/", "");
+	}
+	
     @Test public void validCCGTest() throws Exception {
-    	Assert.assertEquals("origin/develop", System.getenv("GIT_BRANCH"));
+    	Assert.assertEquals("origin/develop", );
     	HttpPost post = new HttpPost("http://" + SERVER_HOST + ":" + SERVER_PORT + "/authserver/v1/oauth/token");
 
         List<NameValuePair> urlParameters = new ArrayList<>();
