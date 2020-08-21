@@ -22,6 +22,7 @@ public class OAuthServiceTest {
 	private static final String SERVER_PORT = "8080";
 	
     @Test public void validCCGTest() throws Exception {
+    	Assert.assertEquals("origin/develop", System.getenv("GIT_BRANCH"));
     	HttpPost post = new HttpPost("http://" + SERVER_HOST + ":" + SERVER_PORT + "/authserver/v1/oauth/token");
 
         List<NameValuePair> urlParameters = new ArrayList<>();
