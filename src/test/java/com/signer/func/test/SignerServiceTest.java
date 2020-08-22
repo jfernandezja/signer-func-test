@@ -20,16 +20,19 @@ import org.junit.Test;
 
 
 public class SignerServiceTest {
-	private static final String AS_SERVER_HOST = "oauth-service-func-master";
+	private static String AS_SERVER_HOST = "oauth-service-func";
 	private static final String AS_SERVER_PORT = "8080";
 	
-	private static final String SERVER_HOST = "signer-service-func-master";
+	private static String SERVER_HOST = "signer-service-func";
 	private static final String SERVER_PORT = "8080";
 	
 	private static String accessToken;
 	
 	@BeforeClass
 	public static void setup() throws Exception {
+		AS_SERVER_HOST = AS_SERVER_HOST + "-" + System.getenv("GIT_BRANCH").replace("origin/", "");
+		SERVER_HOST = SERVER_HOST + "-" + System.getenv("GIT_BRANCH").replace("origin/", "");
+		
 		HttpPost post = new HttpPost("http://" + AS_SERVER_HOST + ":" + AS_SERVER_PORT + "/authserver/v1/oauth/token");
 
         List<NameValuePair> urlParameters = new ArrayList<>();
