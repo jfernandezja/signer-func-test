@@ -19,7 +19,7 @@ import org.junit.Test;
 
 
 public class OAuthServiceTest {
-	private static String SERVER_HOST = "oauth-service-faunc";
+	private static String SERVER_HOST = "oauth-service-func";
 	private static final String SERVER_PORT = "8080";
 	
 	@BeforeClass
