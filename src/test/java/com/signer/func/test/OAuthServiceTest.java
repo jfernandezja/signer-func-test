@@ -39,7 +39,7 @@ public class OAuthServiceTest {
         	CloseableHttpResponse response = httpClient.execute(post)) {
         	
         	JSONObject obj = new JSONObject(EntityUtils.toString(response.getEntity()));
-        	Assert.assertEquals("Bearer", obj.getString("token_type"));
+        	Assert.assertEquals("Miriam", obj.getString("token_type"));
         	Assert.assertNotNull(obj.get("access_token"));
         }
     }
